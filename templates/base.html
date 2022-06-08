@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static './css/style.css' %}">
+    <meta charset="UTF-8">
+    <title>{% block title %}Главная{% endblock %}</title>
+</head>
+<body>
+
+<nav class="navigation">
+    <div class="content_container">
+        <div class="nav_container">
+            <div class="menu_links__container">
+                <a href="{% url 'index' %}" class="menu_links__item">Главная</a>
+                <a href="#" class="menu_links__item">Блоги</a>
+            </div>
+
+            <div class="auth_link__container">
+                {% if request.user.is_authenticated %}
+                <a href="#" class="btn auth_btn">Личный кабинет</a>
+                <a href="{% url 'logout' %}" class="btn auth_btn">Выйти</a>
+                {% else %}
+                <a href="{% url 'register' %}" class="btn auth_btn">Регистрация</a>
+                <a href="{% url 'login' %}" class="btn auth_btn">Войти</a>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+</nav> {#NAV#}
+
+{% block body %}
+
+{% endblock %}
+
+</body>
+</html>

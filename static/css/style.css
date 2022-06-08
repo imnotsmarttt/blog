@@ -1,0 +1,315 @@
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('../fonts/SFProDisplay-Regular.eot');
+    src: local('SF Pro Display Regular'), local('SFProDisplay-Regular'),
+        url('../fonts/SFProDisplay-Regular.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFProDisplay-Regular.woff2') format('woff2'),
+        url('../fonts/SFProDisplay-Regular.woff') format('woff'),
+        url('../fonts/SFProDisplay-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('../fonts/SFProDisplay-Semibold.eot');
+    src: local('SF Pro Display Semibold'), local('SFProDisplay-Semibold'),
+        url('../fonts/SFProDisplay-Semibold.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFProDisplay-Semibold.woff2') format('woff2'),
+        url('../fonts/SFProDisplay-Semibold.woff') format('woff'),
+        url('../fonts/SFProDisplay-Semibold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+
+body {
+    font-family: 'SF Pro Display';
+    font-size: 16px;
+    font-weight: 400;
+
+    margin: 0;
+}
+
+.content_container {
+    width: 1440px;
+    max-width: 1440px;
+    height: 100%;
+
+    margin: 0 auto;
+}
+
+/*OTHER*/
+.main_title {
+    font-weight: 700;
+    font-size: 36px;
+    color: #EEB331;
+
+    margin: 30px auto 30px;
+}
+
+.other_title {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    margin: 0;
+}
+
+.center_title {
+    text-align: center;
+}
+
+.btn {
+    display: inline-block;
+
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 400;
+
+    padding: 6px 14px 5px;
+    border: 1px solid #EEB738;
+    border-radius: 5px;
+
+    color: #EEB738;
+    background: none;
+}
+
+.btn:hover{
+    color: white;
+    background: #EEB738;
+}
+
+
+/*FORM*/
+.form {
+    margin: 0 auto;
+    width: 500px;
+}
+
+.form_input {
+    width: 458px;
+
+    border: 1px solid #E8E6EA;
+    border-radius: 15px;
+    outline: none;
+
+    padding: 18px 20px 19px;
+
+    margin-bottom: 20px;
+
+    font-weight: 400;
+    font-size: 16px;
+    color: #000000;
+
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+}
+
+.form_input::placeholder {
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.form_textarea {
+    width: 458px;
+
+    border: 1px solid #E8E6EA;
+    border-radius: 15px;
+    outline: none;
+
+    padding: 18px 20px 19px;
+
+    margin-bottom: 20px;
+
+    font-family: "SF Pro Display";
+    font-weight: 400;
+    font-size: 16px;
+    color: #000000;
+
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+
+    resize: none;
+}
+
+.form_choice {
+    width: 500px;
+
+    border: 1px solid #E8E6EA;
+    border-radius: 15px;
+    outline: none;
+
+    padding: 18px 20px 19px;
+
+    margin-bottom: 20px;
+
+    font-weight: 400;
+    font-size: 16px;
+    color: #000000;
+
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+}
+
+.form_choice_multiple {
+    width: 500px;
+    height: 100%;
+
+    border: 1px solid #E8E6EA;
+    border-radius: 15px;
+    outline: none;
+
+    padding: 18px 20px 19px;
+
+    margin-bottom: 20px;
+
+    font-weight: 400;
+    font-size: 16px;
+    color: #000000;
+
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+}
+
+.form_btn {
+    display: inline-block;
+    width: 100%;
+
+    text-decoration: none;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+
+    padding: 16px 32px 16px;
+    border: 1px solid #EEB738;
+    border-radius: 15px;
+
+    color: #EEB738;
+    background: none;
+
+    margin-bottom: 20px;
+}
+
+.form_btn:hover {
+    background-color: #EEB738;
+    color: white;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+}
+
+.form_btn:last-child {
+    margin-bottom: 0;
+}
+
+
+/*NAV*/
+.nav_container {
+    display: flex;
+    position: relative;
+    width: 100%;
+}
+
+.navigation{
+    height: 50px;
+
+    box-shadow: 0px 4px 13px -1px rgba(50, 55, 85, 0.25);
+}
+
+.menu_links__container {
+    height: 100%;
+
+    display: flex;
+}
+
+.menu_links__item {
+    text-decoration: none;
+    font-size: 20px;
+    color: #323755;
+
+    height: 100%;
+    padding: 12px 14px 5px;
+    box-sizing: border-box;
+}
+
+.menu_links__item:hover {
+    opacity: .90;
+}
+
+.auth_link__container {
+    position: absolute;
+    right: 50px;
+}
+
+.auth_btn {
+    margin: 8px 10px;
+}
+
+.auth_btn:last-child{
+    margin-right: 0;
+}
+
+/*REGISTER*/
+
+
+/*PROFILE*/
+.profile_container {
+    width: 1140px;
+    max-width: 1140px;
+
+    margin: 0 auto;
+
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.other_profile_info__block {
+    margin-top: 30px;
+}
+
+.profile_photo {
+    height: 300px;
+    width: 240px;
+    max-height: 300px;
+    max-width: 240px;
+
+    border-radius: 5px;
+
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+
+    background-color: black;
+}
+
+.profile_info__block {
+    height: 300px;
+    max-width: 858px;
+
+
+    margin-left: 40px;
+    padding-left: 20px;
+}
+
+.profile_title__name {
+    margin: 10px 0 0 0;
+    font-size: 28px;
+}
+
+.profile_info__about_text {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 150%;
+
+    color: rgba(0, 0, 0, 0.7);
+
+    margin: 5px 0 0;
+}
+
+.profile_info__about_title {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 20px 0 0 0
+}
+
+.profile_avatar_btn_container {
+    max-width: 240px;
+}
+
+.upd_prof_btn {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+}

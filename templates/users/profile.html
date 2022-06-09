@@ -1,0 +1,38 @@
+{% extends '../base.html' %}
+
+{% block title %}Личный кабинет{% endblock %}
+
+
+{% block body %}
+{% load static %}
+<div class="content_container">
+    <h1 class="main_title center_title">{{ user.username }}</h1>
+    <div class="profile_container">
+        <div class="profile_avatar_btn_container">
+            {% if user.avatar %}
+            <img src="{% static user.avatar.url %}" class="profile_photo">
+            {% endif %}
+            <a href="{% url 'profile_edit' pk=request.user.id %}" class="btn upd_prof_btn">Редиктировать профиль</a>
+        </div>
+
+
+        <div class="profile_info__block">
+            <h3 class="other_title profile_title__name">
+                {{ user.first_name }} {{ user.last_name }}</h3>
+{#            <p class="profile_info__about_text">Работа</p>#}
+
+            <div class="other_profile_info__block">
+                <h4 class="profile_info__about_title">Место жительства</h4>
+                <p class="profile_info__about_text">{{ user.country }}, {{ user.region }}</p>
+
+                {% if user.about %}
+                <h4 class="profile_info__about_title">Про меня</h4>
+                <p class="profile_info__about_text">{{ user.about }}</p>
+                {% endif %}
+
+            </div>
+        </div> {#profile info#}
+    </div> {#profile container#}
+</div> {#content container#}
+
+{% endblock %}

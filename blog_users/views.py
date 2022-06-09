@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
-from django.views.generic import ListView, CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, DetailView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import login, authenticate
 
-from .forms import UserRegisterForm, UserAuthForm
+from .forms import UserRegisterForm, UserAuthForm, UserEditProfileForm
+from .models import CustomUser
 
 
 class UserRegister(CreateView):
@@ -33,9 +34,17 @@ class UserLogout(LogoutView):
     template_name = 'users/logout.html'
 
 
-class UserProfile(ListView):
-    pass
+class UserProfile(DetailView):
+    """Профиль пользователя"""
+    model = CustomUser
+    template_name = 'users/profile.html'
 
 
-class UserUpdateProfile(UpdateView):
-    pass
+class UserEditProfile(UpdateView):
+    """Редиктирование профиля пользователя"""
+    form_class = UserEditProfileForm
+    model = CustomUser
+    template_name = 'users/edit_profile.html'
+
+    def get_success_url(self):
+        return f'/user/profile/{self.request.user.id}/'

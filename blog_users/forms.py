@@ -48,7 +48,9 @@ class UserRegisterForm(UserCreationForm):
 
 
 class UserAuthForm(AuthenticationForm):
-    username = forms.CharField(label='', widget=forms.TextInput(attrs={
+    username = forms.CharField(
+        label='',
+        widget=forms.TextInput(attrs={
         'autofocus': True, 'class': 'form_input', 'placeholder': 'Введите логин'}))
     password = forms.CharField(
         label='',
@@ -56,3 +58,41 @@ class UserAuthForm(AuthenticationForm):
         widget=forms.PasswordInput(attrs={
             'autocomplete': 'current-password', 'class': 'form_input', 'placeholder': 'Введите логин'}),
     )
+
+
+class UserEditProfileForm(UserChangeForm):
+    password = None
+
+    class Meta:
+        model = CustomUser
+        fields = ['first_name', 'last_name', 'country', 'region', 'about', 'avatar']
+        labels = {
+            'first_name': '',
+            'last_name': '',
+            'country': '',
+            'region': '',
+            'about': '',
+            'avatar': '',
+        }
+        help_texts = {
+            'username': None
+        }
+
+        widgets = {
+            'first_name': forms.TextInput(attrs={
+                'class': 'form_input', 'placeholder': 'Введите Имя'
+            }),
+            'last_name': forms.TextInput(attrs={
+                'class': 'form_input', 'placeholder': 'Введите фамилию'
+            }),
+            'country': forms.TextInput(attrs={
+                'class': 'form_input', 'placeholder': 'Страна'
+            }),
+            'region': forms.TextInput(attrs={
+                'class': 'form_input', 'placeholder': 'Город'
+            }),
+            'about': forms.Textarea(attrs={
+                'class': 'form_textarea', 'placeholder': 'О себе'
+            }),
+            # 'avatar': forms.FileInput()
+        }

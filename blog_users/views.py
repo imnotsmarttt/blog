@@ -5,6 +5,7 @@ from django.contrib.auth import login, authenticate
 
 from .forms import UserRegisterForm, UserAuthForm, UserEditProfileForm
 from .models import CustomUser
+from blog_core.models import Blog, BlogRubric
 
 
 class UserRegister(CreateView):
@@ -37,6 +38,7 @@ class UserLogout(LogoutView):
 class UserProfile(DetailView):
     """Профиль пользователя"""
     model = CustomUser
+    context_object_name = 'user'
     template_name = 'users/profile.html'
 
 
@@ -48,3 +50,36 @@ class UserEditProfile(UpdateView):
 
     def get_success_url(self):
         return f'/user/profile/{self.request.user.id}/'
+
+
+# class UserBlogs(DetailView):
+#     template_name = 'users/user_blog.html'
+#     model = Blog
+#
+#     def get_queryset(self):
+#         queryset = Blog.objects.filter(creator=self.request.user)
+#         return queryset
+
+def user_blogs(request, creator):
+    """Блоги юзера"""
+    user = CustomUser.objects.get(id=creator)
+    blogs = Blog.objects.filter(creator=user, is_active=True)
+    blog_rubric = BlogRubric.objects.all()
+    context = {
+        'blogs': blogs,
+        'user': user,
+        'blog_rubric': blog_rubric
+    }
+    return render(request, 'users/user_blog.html', context)
+
+
+def user_blogs_by_rubric(request, creator, pk):
+    user = CustomUser.objects.get(id=creator)
+    blogs = Blog.objects.filter(creator=user, is_active=True, rubric=pk)
+    blog_rubrics = BlogRubric.objects.all()
+    context ={
+            'blogs': blogs,
+            'user': user,
+            'blog_rubric': blog_rubrics
+        }
+    return render(request, 'users/user_blog.html', context)

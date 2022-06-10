@@ -1,0 +1,41 @@
+{% extends '../base.html' %}
+
+{% block title %}Личный кабинет{% endblock %}
+
+
+{% block body %}
+{% load static %}
+<div class="content_container">
+    <h1 class="title center_title">Блоги {{ user }}</h1>
+    <div class="blog_container">
+        <div class="blog_filter_block">
+            <h3 class="blog_filter_block__title">Фильтры</h3>
+            <div class="filter_block">
+                <h4 class="filter_block__title">Рубрика</h4>
+                    <a href="{% url 'user_blogs' creator=user.id %}" class="text filter_block__rubric">Все</a>
+                    {% for rubric in blog_rubric %}
+                        <a href="{% url 'user_blogs_by_rubric' creator=user.id pk=rubric.id %}"
+                           class="text filter_block__rubric">{{ rubric.name }}</a>
+                    {% endfor %}
+
+            </div>
+        </div>
+        <div class="blog_list">
+            {% if blogs %}
+                {% for blog in blogs %}
+                    <div class="blog_list__container">
+                        <h1 class="blog_list__container_title">{{ blog.name }}</h1>
+                        <p class="text blog_list__container_text">{{ blog.description }}</p>
+                        <a href="#" class="btn blog_list__container_btn">Перейти</a>
+                        <p class="grey_text blog_list__container_created">Дата создания: {{ blog.created.date }}</p>
+                        <h1 class="grey_text blog_list__container_creator">Автор: {{ blog.creator }}</h1>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="">У пользователя нету блогов</p>
+            {% endif %}
+        </div>
+    </div>
+</div> {#content container#}
+
+{% endblock %}

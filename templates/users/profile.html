@@ -13,6 +13,7 @@
             <img src="{% static user.avatar.url %}" class="profile_photo">
             {% endif %}
             <a href="{% url 'profile_edit' pk=request.user.id %}" class="btn upd_prof_btn">Редиктировать профиль</a>
+            <a href="{% url 'user_blogs' creator=request.user.id %}" class="btn upd_prof_btn">Мои блоги</a>
         </div>
 
 

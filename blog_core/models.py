@@ -5,7 +5,7 @@ from blog_users.models import CustomUser
 
 class BlogRubric(models.Model):
     """Рубрики поста"""
-    name = models.CharField(max_length=50, verbose_name='Имя рубрики')
+    name = models.CharField(max_length=50, verbose_name='Имя рубрики', db_index=True)
 
     class Meta:
         db_table = 'BlogRubric'

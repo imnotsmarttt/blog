@@ -1,0 +1,54 @@
+{% extends '../base.html' %}
+
+{% block title %}{{ blog.title }}{% endblock %}
+
+{% block body %}
+{% load static %}
+<div class="content_container">
+    <div class="blog_detail__container">
+        <div class="blog_detail__header_block">
+            <h2 class="blog_detail__header_block__title">{{ blog.name }}</h2>
+            <p class="blog_detail__header_block__description">{{ blog.description }}</p>
+
+            <div class="blog_detail__header_block__links">
+                <a href="#" class="blog_detail__header_block__links_item">ПРО БЛОГ</a>
+                <a href="#" class="blog_detail__header_block__links_item">ПОСТЫ</a>
+                <a href="#" class="blog_detail__header_block__links_item">НОВОСТИ</a>
+                <a href="#" class="blog_detail__header_block__links_item">РЕДАКТОРЫ</a>
+            </div>
+        </div>{#  BLOG HEADER  #}
+
+        <div class="blog_detail__info_block">
+            <dl class="dl_blog_detail_info">
+                <dt class="dt_title__blog_info">Создатель:</dt>
+                <dd class="dd_title__blog_info">{{ blog.creator }}</dd>
+            </dl>
+
+            <dl class="dl_blog_detail_info">
+                <dt class="dt_title__blog_info">Дата создания:</dt>
+                <dd class="dd_title__blog_info">{{ blog.created.date }}</dd>
+            </dl>
+
+            <dl class="dl_blog_detail_info">
+                <dt class="dt_title__blog_info">Редакторы:</dt>
+                <dd class="dd_title__blog_info">1</dd>
+            </dl>
+        </div>{#  BLOG INFO  #}
+
+        <div class="blog_post__container">
+            {% for post in posts %}
+                <div class="blog_post">
+                    <h4 class="blog_post__author">{{ post.author }}</h4>
+                    <p class="blog_post__created">{{ post.created }}</p>
+                    <h3 class="blog_post__title">{{ post.title }}</h3>
+                    <p class="blog_post__text">{{ post.text }}</p>
+                    <a href="#" class="btn blue_btn">Читать дальше</a>
+                </div>
+            {% endfor %}
+        </div>{#  BLOG POSTS CONTAINER  #}
+    </div>{#  BLOG POSTS DETAIL CONTAINER  #}
+
+
+</div>
+
+{% endblock %}

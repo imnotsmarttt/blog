@@ -79,6 +79,15 @@ body {
     background: #EEB738;
 }
 
+.blue_btn {
+    color: rgb(56, 58, 62);
+    border: 1px solid rgb(56, 58, 62);
+}
+
+.blue_btn:hover {
+    background-color: rgb(56, 58, 62);
+}
+
 .grey_text {
     font-size: 12px;
 
@@ -403,3 +412,129 @@ body {
     right: 20px;
     font-size: 14px;
 }
+
+/*BLOG DETAIL*/
+.blog_detail__container {
+    display: flex;
+    flex-wrap: wrap;;
+
+    margin-top: 30px;
+}
+
+.blog_detail__header_block__title {
+    margin: 0;
+}
+
+.blog_detail__header_block__description {
+    margin: 5px 0 0 0;
+}
+
+.blog_detail__header_block__links {
+    display: flex;
+}
+
+.blog_detail__header_block__links_item {
+    text-decoration: none;
+
+    color: rgb(56, 58, 62);
+    margin: 25px 20px 0 0 ;
+
+    font-weight: 600;
+}
+
+.blog_detail__header_block__links_item:hover {
+    opacity: .75;
+}
+
+
+/*BLOG DETAIL HEADER*/
+.blog_detail__header_block {
+    width: 980px;
+
+    background-color: rgb(232, 240, 254);
+    color: rgb(56, 58, 62);
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+    border-radius: 2px;
+    padding: 10px 20px;
+
+    box-sizing: content-box;
+    height: 100%;
+}
+
+
+/*BLOG DETAIL INFO*/
+.blog_detail__info_block {
+    width: 260px;
+    max-width: 260px;
+    font-size: 15px;
+
+    height: 100%;
+
+    background-color: rgb(232, 240, 254);
+    color: rgb(56, 58, 62);
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+    border-radius: 2px;
+
+    padding: 10px 20px;
+    margin-left: 40px;
+}
+
+.dl_blog_detail_info {
+    display: flex;
+}
+
+.dt_title__blog_info {
+    display: inline-block;
+    width: 50%;
+
+    font-weight: 600;
+}
+
+.dd_title__blog_info {
+    display: inline-block;
+    width: 50%;
+    margin: 0;
+}
+
+/*BLOG POSTS*/
+.blog_post__container {
+
+}
+
+.blog_post__author {
+    margin: 5px 0 0;
+    display: inline-block;
+
+    font-size: 14px;
+
+}
+
+.blog_post__created {
+    display: inline;
+
+    font-size: 14px;
+    margin: 5px 0 0 20px;
+    opacity: .75;
+}
+
+.blog_post {
+    position: relative;
+    width: 980px;
+    max-width: 980px;
+
+    background-color: rgb(232, 240, 254);
+    color: rgb(56, 58, 62);
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+    border-radius: 2px;
+    padding: 10px 20px;
+}
+
+.blog_post__title {
+    margin: 15px 0 0 0;
+}
+
+.blog_post__text {
+    margin: 5px 0 15px 0;
+}
+
+

@@ -17,24 +17,27 @@
                         <a href="{% url 'user_blogs_by_rubric' creator=user.id pk=rubric.id %}"
                            class="text filter_block__rubric">{{ rubric.name }}</a>
                     {% endfor %}
-
             </div>
         </div>
+
+
         <div class="blog_list">
             {% if blogs %}
                 {% for blog in blogs %}
                     <div class="blog_list__container">
                         <h1 class="blog_list__container_title">{{ blog.name }}</h1>
                         <p class="text blog_list__container_text">{{ blog.description }}</p>
-                        <a href="#" class="btn blog_list__container_btn">Перейти</a>
+                        <a href="{% url 'blog_detail' pk=blog.id %}" class="btn blog_list__container_btn">Перейти</a>
                         <p class="grey_text blog_list__container_created">Дата создания: {{ blog.created.date }}</p>
                         <h1 class="grey_text blog_list__container_creator">Автор: {{ blog.creator }}</h1>
                     </div>
                 {% endfor %}
             {% else %}
                 <p class="">У пользователя нету блогов</p>
+                <a href="{% url 'blog_create' %}" class="btn">Создать блог</a>
             {% endif %}
         </div>
+
     </div>
 </div> {#content container#}
 

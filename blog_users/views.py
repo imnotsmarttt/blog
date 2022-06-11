@@ -55,15 +55,23 @@ class UserEditProfile(UpdateView):
 # class UserBlogs(DetailView):
 #     template_name = 'users/user_blog.html'
 #     model = Blog
+#     queryset = Blog.objects.all()
+#
+#     def get_context_data(self, *args, **kwargs):
+#         context = super(UserBlogs, self)
+#         context['user'] = CustomUser.objects.get(id=self.request.user.id)
+#         return context
 #
 #     def get_queryset(self):
-#         queryset = Blog.objects.filter(creator=self.request.user)
-#         return queryset
+#         return self.queryset.filter(creator=self.request.user)
+
+
+
 
 def user_blogs(request, creator):
     """Блоги юзера"""
     user = CustomUser.objects.get(id=creator)
-    blogs = Blog.objects.filter(creator=user, is_active=True)
+    blogs = Blog.objects.filter(creator=user, is_active=True).order_by('-created')
     blog_rubric = BlogRubric.objects.all()
     context = {
         'blogs': blogs,
@@ -74,8 +82,9 @@ def user_blogs(request, creator):
 
 
 def user_blogs_by_rubric(request, creator, pk):
+    """Блоги юзера отсортированные по рубрике"""
     user = CustomUser.objects.get(id=creator)
-    blogs = Blog.objects.filter(creator=user, is_active=True, rubric=pk)
+    blogs = Blog.objects.filter(creator=user, is_active=True, rubric=pk).order_by('-created')
     blog_rubrics = BlogRubric.objects.all()
     context ={
             'blogs': blogs,
@@ -83,3 +92,4 @@ def user_blogs_by_rubric(request, creator, pk):
             'blog_rubric': blog_rubrics
         }
     return render(request, 'users/user_blog.html', context)
+

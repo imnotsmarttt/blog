@@ -12,8 +12,8 @@ urlpatterns = [
     path('profile/<int:pk>/', views.UserProfile.as_view(), name='profile'),
     path('profile/<int:pk>/edit/', views.UserEditProfile.as_view(), name='profile_edit'),
 
-    path('profile/<int:creator>/blogs/', views.user_blogs, name='user_blogs'),
-    path('profile/<int:creator>/blogs/rubric/<int:pk>/', views.user_blogs_by_rubric, name='user_blogs_by_rubric'),
+    path('profile/<int:pk>/blogs/', views.UserBlogs.as_view(), name='user_blogs'),
+    path('profile/<int:pk>/blogs/rubric/<int:rubric>/', views.UserBlogsByRubric.as_view(), name='user_blogs_by_rubric'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

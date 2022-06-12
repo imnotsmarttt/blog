@@ -12,9 +12,9 @@
             <h3 class="blog_filter_block__title">Фильтры</h3>
             <div class="filter_block">
                 <h4 class="filter_block__title">Рубрика</h4>
-                    <a href="{% url 'user_blogs' creator=user.id %}" class="text filter_block__rubric">Все</a>
+                    <a href="{% url 'user_blogs' pk=user.id %}" class="text filter_block__rubric">Все</a>
                     {% for rubric in blog_rubric %}
-                        <a href="{% url 'user_blogs_by_rubric' creator=user.id pk=rubric.id %}"
+                        <a href="{% url 'user_blogs_by_rubric' pk=user.id rubric=rubric.id %}"
                            class="text filter_block__rubric">{{ rubric.name }}</a>
                     {% endfor %}
             </div>

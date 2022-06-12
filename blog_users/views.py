@@ -52,44 +52,25 @@ class UserEditProfile(UpdateView):
         return f'/user/profile/{self.request.user.id}/'
 
 
-# class UserBlogs(DetailView):
-#     template_name = 'users/user_blog.html'
-#     model = Blog
-#     queryset = Blog.objects.all()
-#
-#     def get_context_data(self, *args, **kwargs):
-#         context = super(UserBlogs, self)
-#         context['user'] = CustomUser.objects.get(id=self.request.user.id)
-#         return context
-#
-#     def get_queryset(self):
-#         return self.queryset.filter(creator=self.request.user)
+class UserBlogs(DetailView):
+    template_name = 'users/user_blog.html'
+    model = CustomUser
+    context_object_name = 'user'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['blogs'] = Blog.objects.filter(creator=self.get_object()).order_by('-created')
+        context['blog_rubric'] = BlogRubric.objects.all()
+        return context
 
 
+class UserBlogsByRubric(DetailView):
+    template_name = 'users/user_blog.html'
+    model = CustomUser
+    context_object_name = 'user'
 
-
-def user_blogs(request, creator):
-    """Блоги юзера"""
-    user = CustomUser.objects.get(id=creator)
-    blogs = Blog.objects.filter(creator=user, is_active=True).order_by('-created')
-    blog_rubric = BlogRubric.objects.all()
-    context = {
-        'blogs': blogs,
-        'user': user,
-        'blog_rubric': blog_rubric
-    }
-    return render(request, 'users/user_blog.html', context)
-
-
-def user_blogs_by_rubric(request, creator, pk):
-    """Блоги юзера отсортированные по рубрике"""
-    user = CustomUser.objects.get(id=creator)
-    blogs = Blog.objects.filter(creator=user, is_active=True, rubric=pk).order_by('-created')
-    blog_rubrics = BlogRubric.objects.all()
-    context ={
-            'blogs': blogs,
-            'user': user,
-            'blog_rubric': blog_rubrics
-        }
-    return render(request, 'users/user_blog.html', context)
-
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['blogs'] = Blog.objects.filter(creator=self.get_object(), rubric=self.kwargs['rubric']).order_by('-created')
+        context['blog_rubric'] = BlogRubric.objects.all()
+        return context

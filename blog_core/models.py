@@ -28,10 +28,6 @@ class Blog(models.Model):
 
     def __str__(self):
         return self.name
-    
-    # 
-    # def save(self):
-    #     if Blog.object
 
 
 class BlogPost(models.Model):
@@ -50,3 +46,8 @@ class BlogPost(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class PostLike(models.Model):
+    post = models.ForeignKey('BlogPost', on_delete=models.CASCADE, related_name='post')
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='like')

@@ -1,10 +1,13 @@
 from django.shortcuts import render, reverse
 from django.views.generic import CreateView, DetailView, ListView
 from django.core.paginator import Paginator
+from django.http import HttpResponseRedirect
+from django.core.exceptions import ValidationError
 
 from .forms import CreateBlogForm, CreatePostForm
-from .models import Blog, BlogPost, BlogRubric
+from .models import Blog, BlogPost, BlogRubric, PostLike
 
+from .services import is_fan
 
 def index(request):
     return render(request, 'base.html')
@@ -107,3 +110,23 @@ class CreatePost(CreateView):
 
 class PostDetail(DetailView):
     """Детальное представление конкретнго поста"""
+    model = BlogPost
+    template_name = 'core/post_detail.html'
+    context_object_name = 'post'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['blog'] = Blog.objects.get(id=self.kwargs['blog_id'])
+        context['post_likes'] = PostLike.objects.filter(post=self.get_object())
+        return context
+
+
+def post_like(request, post_id):
+    post = BlogPost.objects.get(id=post_id)
+    if not is_fan(user=request.user, obj=post):
+        post_like = PostLike()
+        post_like.user = (request.user)
+        post_like.post = post
+        post_like.save()
+    return HttpResponseRedirect(reverse('post_detail', kwargs={'blog_id': post.blog.id, 'pk':post.id}))
+

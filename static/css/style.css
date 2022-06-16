@@ -396,7 +396,8 @@ body {
 /*BLOG FILTER*/
 .blog_filter_block {
     width: 240px;
-    background-color: #F3F3F3;
+    background-color: rgb(232, 240, 254);
+    height: fit-content;
 }
 
 .blog_filter_block__title {
@@ -448,6 +449,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     width: 240px;
+    height: fit-content;
 }
 
 .blog_list__container_created {
@@ -598,5 +600,8 @@ body {
     margin: 5px 0 15px 0;
 }
 
-
+/*POST DETAIL*/
+.info_about_post {
+    margin-top: 20px;
+}
 

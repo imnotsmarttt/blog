@@ -6,8 +6,9 @@
 {% block body %}
 {% load static %}
 <div class="content_container">
-    <h1 class="title center_title">Блоги {{ user }}</h1>
+    <h1 class="title center_title">Блоги</h1>
     <div class="blog_container">
+
         <div class="blog_container__left_block">
             <div class="blog_filter_block">
                 <h3 class="blog_filter_block__title">Фильтры</h3>
@@ -26,9 +27,8 @@
         </div>{#blog_container__left_block#}
 
 
-
         <div class="blog_list">
-            <h1>Записей {{ blog_count }}</h1>
+            <h2 class="other_title">Записей: {{ blogs|length }}</h2>
             {% for blog in blogs %}
                 <div class="blog_list__container">
                     <h1 class="blog_list__container_title">{{ blog.name }}</h1>
@@ -38,7 +38,7 @@
                     <h1 class="grey_text blog_list__container_creator">Автор: {{ blog.creator }}</h1>
                 </div>
             {% empty %}
-                <p class="">Записи не найдены</p>
+                <p class="text">Записи не найдены</p>
             {% endfor %}
 
             <div class="page_pagination_hyperlinks">

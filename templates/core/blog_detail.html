@@ -21,7 +21,7 @@
         <div class="blog_detail__info_block">
             <dl class="dl_blog_detail_info">
                 <dt class="dt_title__blog_info">Создатель:</dt>
-                <dd class="dd_title__blog_info">{{ blog.creator }}</dd>
+                <dd class="dd_title__blog_info"><a class="link" href="{% url 'profile' pk=blog.creator.id %}"> {{ blog.creator }} </a></dd>
             </dl>
 
             <dl class="dl_blog_detail_info">
@@ -33,6 +33,7 @@
                 <dt class="dt_title__blog_info">Редакторы:</dt>
                 <dd class="dd_title__blog_info">1</dd>
             </dl>
+            <a href="{% url 'post_create' pk=blog.id %}" class="btn blue_btn">Опубликоваь пост</a>
         </div>{#  BLOG INFO  #}
 
         <div class="blog_post__container">

@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Blog
+from .models import Blog, BlogPost
 
 
 class CreateBlogForm(forms.ModelForm):
@@ -23,5 +23,26 @@ class CreateBlogForm(forms.ModelForm):
             }),
             'rubric': forms.Select(attrs={
                 'class': 'form_choice'
+            }),
+        }
+
+
+class CreatePostForm(forms.ModelForm):
+    """Форма создания поста"""
+    class Meta:
+        model = BlogPost
+        fields = ['title', 'text', 'images']
+        labels = {
+            'title': '',
+            'text': '',
+            'images': '',
+        }
+
+        widgets = {
+            'title': forms.TextInput(attrs={
+                'class': 'form_input', 'placeholder': 'Введите заголовок'
+            }),
+            'text': forms.Textarea(attrs={
+                'class': 'form_textarea', 'placeholder': 'Текст'
             }),
         }

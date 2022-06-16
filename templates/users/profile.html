@@ -12,16 +12,17 @@
             {% if user.avatar %}
             <img src="{% static user.avatar.url %}" class="profile_photo">
             {% endif %}
+            {% if request.user == user %}
             <a href="{% url 'profile_edit' pk=request.user.id %}" class="btn upd_prof_btn">Редиктировать профиль</a>
             <a href="{% url 'user_blogs' pk=request.user.id %}" class="btn upd_prof_btn">Мои блоги</a>
             <a href="{% url 'blog_create' %}" class="btn upd_prof_btn">Создать блог</a>
+            {% endif %}
         </div>
 
 
         <div class="profile_info__block">
             <h3 class="other_title profile_title__name">
                 {{ user.first_name }} {{ user.last_name }}</h3>
-{#            <p class="profile_info__about_text">Работа</p>#}
 
             <div class="other_profile_info__block">
                 <h4 class="profile_info__about_title">Место жительства</h4>

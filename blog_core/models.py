@@ -28,6 +28,10 @@ class Blog(models.Model):
 
     def __str__(self):
         return self.name
+    
+    # 
+    # def save(self):
+    #     if Blog.object
 
 
 class BlogPost(models.Model):

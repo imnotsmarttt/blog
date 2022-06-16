@@ -40,6 +40,7 @@ body {
 }
 
 /*OTHER*/
+/*TEXT*/
 .main_title {
     font-weight: 700;
     font-size: 36px;
@@ -59,6 +60,23 @@ body {
     text-align: center;
 }
 
+.grey_text {
+    font-size: 12px;
+
+    color: #ADAFBB;
+    margin: 0;
+}
+
+.text {
+    margin: 0;
+
+    font-weight: 400;
+    font-size: 16px;
+
+    color: #000000;
+}
+
+/*BTNS*/
 .btn {
     display: inline-block;
 
@@ -72,6 +90,11 @@ body {
 
     color: #EEB738;
     background: none;
+}
+
+.btn__fit_content {
+    height: fit-content;
+    width: fit-content;
 }
 
 .btn:hover{
@@ -88,20 +111,44 @@ body {
     background-color: rgb(56, 58, 62);
 }
 
-.grey_text {
-    font-size: 12px;
-
-    color: #ADAFBB;
-    margin: 0;
+.btn_100width {
+    width: 100%;
+    text-align: center;
 }
 
-.text {
-    margin: 0;
+.link {
+    text-decoration: none;
+    color: rgb(56, 58, 62);
+    font-weight: 600;
+}
 
-    font-weight: 400;
+/*PAGINATION*/
+.page_pagination_hyperlinks {
+    box-sizing: content-box;
+    margin: 0 auto;
+    display: block;
+}
+
+.paginator_btn {
+    text-decoration: none;
+
+    color: rgb(255, 255, 255);
+    background-color: rgb(56, 58, 62);
+
     font-size: 16px;
+    font-weight: 400;
 
-    color: #000000;
+    padding: 6px 14px 5px;
+    margin: 0 5px 0 5px;
+
+    border: 1px solid rgb(56, 58, 62);
+    border-radius: 5px;
+
+    box-sizing: content-box;
+}
+
+.paginator_btn:hover {
+    opacity: .90;
 }
 
 /*FORM*/
@@ -336,6 +383,7 @@ body {
     display: block;
     text-align: center;
     margin-top: 10px;
+
 }
 
 /*BLOGS*/
@@ -372,6 +420,11 @@ body {
 /*BLOG LIST*/
 .blog_list {
     margin: 0 0 0 40px;
+
+    display: flex;
+    flex-wrap: wrap;
+
+    width: 1160px;
 }
 
 .blog_list__container {
@@ -389,6 +442,12 @@ body {
 
 .blog_list__container_title {
     margin: 0;
+}
+
+.blog_container__left_block {
+    display: flex;
+    flex-wrap: wrap;
+    width: 240px;
 }
 
 .blog_list__container_created {
@@ -527,6 +586,8 @@ body {
     box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
     border-radius: 2px;
     padding: 10px 20px;
+
+    margin-bottom: 20px;
 }
 
 .blog_post__title {
@@ -536,5 +597,6 @@ body {
 .blog_post__text {
     margin: 5px 0 15px 0;
 }
+
 
 

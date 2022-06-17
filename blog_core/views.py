@@ -2,12 +2,11 @@ from django.shortcuts import render, reverse
 from django.views.generic import CreateView, DetailView, ListView
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
-from django.core.exceptions import ValidationError
 
 from .forms import CreateBlogForm, CreatePostForm
 from .models import Blog, BlogPost, BlogRubric, PostLike
 
-from .services import is_fan
+from .services import is_fan, BlogFeedMixin
 
 def index(request):
     return render(request, 'base.html')
@@ -34,45 +33,32 @@ class CreateBlog(CreateView):
         return f'/user/profile/{self.request.user.id}/blogs/'
 
 
-class BlogFeed(ListView):
+class BlogFeed(BlogFeedMixin, ListView):
     """Страница всех блогов"""
     model = Blog
     template_name = 'core/blog_list.html'
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        blog_queryset = Blog.objects.all().order_by('-created')
-        blog_pagination = self.blog_paginator(queryset=blog_queryset)
 
-        context['blogs'] = blog_pagination
-        context['blog_rubric'] = BlogRubric.objects.all()
+    def get_context_data(self, *, object_list=None, **kwargs):
+        blog_p = BlogFeedMixin.blog_paginator(self, request=self.request, queryset=Blog.objects.all())
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_blog_context(blog_pag=blog_p)
+        context = dict(list(context.items()) + list(c_def.items()))
         return context
 
-    def blog_paginator(self, queryset):
-        paginator = Paginator(queryset, 10)
-        page = self.request.GET.get('page')
-        activities = paginator.get_page(page)
-        return activities
 
-
-class BlogFeedByRubric(ListView):
+class BlogFeedByRubric(BlogFeedMixin, ListView):
     """Страница всех блогов по рубрикам"""
     model = Blog
     template_name = 'core/blog_list.html'
 
     def get_context_data(self, *, object_list=None, **kwargs):
+        blog_p = BlogFeedMixin.blog_paginator(self, request=self.request,
+                                              queryset=Blog.objects.filter(rubric=self.kwargs['rubric']))
         context = super().get_context_data(**kwargs)
-        blog_queryset = Blog.objects.filter(rubric=self.kwargs['rubric']).order_by('-created')
-        blog_pagination = self.blog_paginator(queryset=blog_queryset)
-        context['blogs'] = blog_pagination
-        context['blog_rubric'] = BlogRubric.objects.all()
+        c_def = self.get_blog_context(blog_pag=blog_p)
+        context = dict(list(context.items()) + list(c_def.items()))
         return context
-
-    def blog_paginator(self, queryset):
-        paginator = Paginator(queryset, 10)
-        page = self.request.GET.get('page')
-        activities = paginator.get_page(page)
-        return activities
 
 
 class BlogDetail(DetailView):

@@ -22,6 +22,8 @@ class Blog(models.Model):
     creator = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='blog_creator')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     is_active = models.BooleanField()
+    # У блога могут быть несколько редакторов
+    editors = models.ManyToManyField(CustomUser, related_name='editor')
 
     class Meta:
         db_table = 'Blog'
@@ -51,3 +53,11 @@ class BlogPost(models.Model):
 class PostLike(models.Model):
     post = models.ForeignKey('BlogPost', on_delete=models.CASCADE, related_name='post')
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='like')
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    post = models.ForeignKey('BlogPost', on_delete=models.CASCADE)
+    content = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+

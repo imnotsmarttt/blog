@@ -33,23 +33,33 @@
                 <dt class="dt_title__blog_info">Редакторы:</dt>
                 <dd class="dd_title__blog_info">{{ blog.editors.all|length }}</dd>
             </dl>
-            <a href="{% url 'post_create' pk=blog.id %}" class="btn blue_btn">Опубликоваь пост</a>
-            {% if request.user == blog.creator %}
-                    <a href="#" class="btn blue_btn btn__fit_content">Добавить редактора</a>
-            {% endif %}
         </div>{#  BLOG INFO  #}
 
-        <div class="blog_post__container">
-            {% for post in posts %}
-                <div class="blog_post">
-                    <h4 class="blog_post__author">{{ post.author }}</h4>
-                    <p class="blog_post__created">{{ post.created }}</p>
-                    <h3 class="blog_post__title">{{ post.title }}</h3>
-                    <p class="blog_post__text">{{ post.text }}</p>
-                    <a href="{% url 'post_detail' blog_id=post.blog.id pk=post.id %}" class="btn blue_btn">Читать дальше</a>
-                </div>
-            {% endfor %}
-        </div>{#  BLOG POSTS CONTAINER  #}
+
+
+
+{#        <div class="blog_detail__info_block info_about_post">#}
+{#            <h3>Информация про пост</h3>#}
+{#            <dl class="dl_blog_detail_info">#}
+{#                <dt class="dt_title__blog_info">Автор:</dt>#}
+{#                <dd class="dd_title__blog_info"><a class="link" href="{% url 'profile' pk=post.author.id %}"> {{ post.author }} </a></dd>#}
+{#            </dl>#}
+{##}
+{#            <dl class="dl_blog_detail_info">#}
+{#                <dt class="dt_title__blog_info">Дата создания:</dt>#}
+{#                <dd class="dd_title__blog_info">{{ post.created }}</dd>#}
+{#            </dl>#}
+{##}
+{#            <dl class="dl_blog_detail_info">#}
+{#                <dt class="dt_title__blog_info">Лайков:</dt>#}
+{#                <dd class="dd_title__blog_info">{{ post_likes|length }}</dd>#}
+{#            </dl>#}
+{##}
+{#            <form action="{% url 'post_like' post_id=post.id %}" method="post">#}
+{#                {% csrf_token %}#}
+{#                <button type="submit" class="btn blue_btn">Лайк</button>#}
+{#            </form>#}
+{#        </div>{#  POST INFO  #}
     </div>{#  BLOG POSTS DETAIL CONTAINER  #}
 
 

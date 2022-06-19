@@ -477,7 +477,7 @@ body {
 /*BLOG DETAIL*/
 .blog_detail__container {
     display: flex;
-    flex-wrap: wrap;;
+    flex-wrap: wrap;
 
     margin-top: 30px;
 }
@@ -519,7 +519,7 @@ body {
     padding: 10px 20px;
 
     box-sizing: content-box;
-    height: 100%;
+    height: fit-content;
 }
 
 
@@ -559,7 +559,8 @@ body {
 
 /*BLOG POSTS*/
 .blog_post__container {
-
+    height: fit-content;
+    align-self: flex-end;
 }
 
 .blog_post__author {
@@ -598,6 +599,8 @@ body {
 
 .blog_post__text {
     margin: 5px 0 15px 0;
+    word-wrap: break-word;
+    line-height: 150%;
 }
 
 /*POST DETAIL*/
@@ -605,3 +608,52 @@ body {
     margin-top: 20px;
 }
 
+/*COMMENTS*/
+.comments_container {
+    width: 980px;
+    max-width: 980px;
+
+    padding: 10px 20px;
+
+    background-color: rgb(232, 240, 254);
+    color: rgb(56, 58, 62);
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+}
+
+.comment_block {
+    margin-top: 20px;
+}
+
+/*COMMENT FORM*/
+.comment_form {
+    margin-top: 20px;
+}
+
+.comment_form__input {
+    box-sizing: border-box;
+    width: 100%;
+
+    outline: none;
+    border: none;
+    border-radius: 3px;
+
+    padding: 10px 20px;
+
+    color: rgb(56, 58, 62);
+    font-size: 16px;
+    font-weight: 400;
+    font-family: "SF Pro Display";
+
+    resize: none;
+}
+
+.comment_form__input::placeholder {
+    color: rgb(56, 58, 62);
+    font-size: 16px;
+    font-weight: 400;
+    font-family: "SF Pro Display";
+}
+
+.comment_button {
+    margin-top: 10px;
+}

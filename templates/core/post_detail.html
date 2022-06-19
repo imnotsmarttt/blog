@@ -1,6 +1,6 @@
 {% extends '../base.html' %}
 
-{% block title %}{{ blog.title }}{% endblock %}
+{% block title %}{{ post.title }}{% endblock %}
 
 {% block body %}
 {% load static %}
@@ -12,7 +12,7 @@
 
             <div class="blog_detail__header_block__links">
                 <a href="#" class="blog_detail__header_block__links_item">ПРО БЛОГ</a>
-                <a href="#" class="blog_detail__header_block__links_item">ПОСТЫ</a>
+                <a href="{% url 'blog_detail' pk=blog.id %}" class="blog_detail__header_block__links_item">ПОСТЫ</a>
                 <a href="#" class="blog_detail__header_block__links_item">НОВОСТИ</a>
                 <a href="#" class="blog_detail__header_block__links_item">РЕДАКТОРЫ</a>
             </div>
@@ -21,7 +21,7 @@
         <div class="blog_detail__info_block">
             <dl class="dl_blog_detail_info">
                 <dt class="dt_title__blog_info">Создатель:</dt>
-                <dd class="dd_title__blog_info"><a class="link" href="{% url 'profile' pk=blog.creator.id %}"> {{ blog.creator }} </a></dd>
+{#                <dd class="dd_title__blog_info"><a class="link" href="{% url 'profile' pk=blog.creator.id %}"> {{ blog.creator }} </a></dd>#}
             </dl>
 
             <dl class="dl_blog_detail_info">
@@ -31,8 +31,10 @@
 
             <dl class="dl_blog_detail_info">
                 <dt class="dt_title__blog_info">Редакторы:</dt>
-                <dd class="dd_title__blog_info">1</dd>
+                <dd class="dd_title__blog_info">{{ blog.editors.all|length }}</dd>
             </dl>
+
+
         </div>{#  BLOG INFO  #}
 
 
@@ -42,6 +44,28 @@
                 <p class="blog_post__created">{{ post.created }}</p>
                 <h3 class="blog_post__title">{{ post.title }}</h3>
                 <p class="blog_post__text">{{ post.text }}</p>
+            </div>
+
+            <div class="comments_container">
+                <h3 class="blog_post__title">Комментарии</h3>
+
+                <form class="comment_form" method="post">
+                    {% csrf_token %}
+                    {{ form }}
+                    <button type="submit" class="btn blue_btn comment_button">Оставить комментарий</button>
+                </form>
+
+                {% for comment in comments %}
+                <div class="comment_block">
+                    <h4 class="blog_post__author">{{ comment.user }}</h4>
+                    <p class="blog_post__created">{{ comment.created }}</p>
+                    <p class="blog_post__text">{{ comment.content }}</p>
+                </div>
+                {% empty %}
+                <div class="comment_block">
+                    <h3 class="blog_post__author">Комментариев нет</h3>
+                </div>
+                {% endfor %}
             </div>
         </div>{#  BLOG POSTS CONTAINER  #}
 
@@ -66,7 +90,6 @@
                 {% csrf_token %}
                 <button type="submit" class="btn blue_btn">Лайк</button>
             </form>
-
         </div>{#  POST INFO  #}
     </div>{#  BLOG POSTS DETAIL CONTAINER  #}
 

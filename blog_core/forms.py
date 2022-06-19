@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Blog, BlogPost
+from .models import Blog, BlogPost, Comment
 
 
 class CreateBlogForm(forms.ModelForm):
@@ -46,3 +46,26 @@ class CreatePostForm(forms.ModelForm):
                 'class': 'form_textarea', 'placeholder': 'Текст'
             }),
         }
+
+
+class CommentForm(forms.ModelForm):
+    """Форма создания комментариев"""
+    class Meta:
+        model = Comment
+        fields = ['content']
+        labels = {
+            'content': ''
+        }
+
+        widgets = {
+            'content': forms.Textarea(attrs={
+                'class': 'comment_form__input', 'placeholder': 'Введите комментарий'
+            })
+        }
+
+
+class AddBlogEditorForl(forms.Form):
+    editor = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'form_input', 'placeholder': 'Введите заголовок'
+    })
+    )

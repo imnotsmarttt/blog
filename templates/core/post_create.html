@@ -4,11 +4,15 @@
 
 {% block body %}
 <div class="content_container">
-    <form class="form" method="post">
+    {% if check_perm %}
+    <form class="form" method="post" enctype="multipart/form-data">
         <h1 class="title center_title">Публикация поста</h1>
         {% csrf_token %}
         {{ form }}
         <button type="submit" class="form_btn">Опубликовать</button>
     </form>
+    {% else %}
+    <h1 class="title center_title">Вы не можете публиковать пост в данном блоге</h1>
+    {% endif %}
 </div>
 {% endblock %}

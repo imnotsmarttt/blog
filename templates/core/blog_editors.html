@@ -13,7 +13,6 @@
             <div class="blog_detail__header_block__links">
                 <a href="#" class="blog_detail__header_block__links_item">ПРО БЛОГ</a>
                 <a href="{% url 'blog_detail' pk=blog.id %}" class="blog_detail__header_block__links_item">ПОСТЫ</a>
-                <a href="#" class="blog_detail__header_block__links_item">НОВОСТИ</a>
                 <a href="{% url 'blog_editors' pk=blog.id%}" class="blog_detail__header_block__links_item">РЕДАКТОРЫ</a>
             </div>
         </div>{#  BLOG HEADER  #}
@@ -35,31 +34,29 @@
             </dl>
         </div>{#  BLOG INFO  #}
 
+        <div class="blog_post__container">
+            {% for editor in blog.editors.all %}
+                <div class="blog_post editors_block">
+                    <img class="user_photo__info" src="{% static editor.avatar.url %}">
+                    <h2 class="blog_post__author">{{ editor.first_name }} {{ editor.last_name }}
+                        <a class="link blue_link" href="{% url 'profile' pk=editor.id %}">@{{ editor.username }}</a></h2>
 
+                    <p class="user__date_joined">Дата регистрации: {{ editor.date_joined }}</p>
+                </div>
+            {% endfor %}
+        </div>
 
-
-{#        <div class="blog_detail__info_block info_about_post">#}
-{#            <h3>Информация про пост</h3>#}
-{#            <dl class="dl_blog_detail_info">#}
-{#                <dt class="dt_title__blog_info">Автор:</dt>#}
-{#                <dd class="dd_title__blog_info"><a class="link" href="{% url 'profile' pk=post.author.id %}"> {{ post.author }} </a></dd>#}
-{#            </dl>#}
-{##}
-{#            <dl class="dl_blog_detail_info">#}
-{#                <dt class="dt_title__blog_info">Дата создания:</dt>#}
-{#                <dd class="dd_title__blog_info">{{ post.created }}</dd>#}
-{#            </dl>#}
-{##}
-{#            <dl class="dl_blog_detail_info">#}
-{#                <dt class="dt_title__blog_info">Лайков:</dt>#}
-{#                <dd class="dd_title__blog_info">{{ post_likes|length }}</dd>#}
-{#            </dl>#}
-{##}
-{#            <form action="{% url 'post_like' post_id=post.id %}" method="post">#}
-{#                {% csrf_token %}#}
-{#                <button type="submit" class="btn blue_btn">Лайк</button>#}
-{#            </form>#}
-{#        </div>{#  POST INFO  #}
+    {% if request.user == blog.creator %}
+        <div class="blog_detail__info_block info_about_post">
+            <h3>Добавить редактора</h3>
+            <form method="post" class="form">
+                {% csrf_token %}
+                {{ form }}
+                <button type="submit" class="btn blue_btn btn_100width">Добавить</button>
+            </form>
+        </div>{#  POST INFO #}
+    {% endif %}
+        </div>
     </div>{#  BLOG POSTS DETAIL CONTAINER  #}
 
 

@@ -122,6 +122,11 @@ body {
     font-weight: 600;
 }
 
+.blue_link {
+    color: rgb(90, 106, 131);
+    font-weight: 400;
+}
+
 /*PAGINATION*/
 .page_pagination_hyperlinks {
     box-sizing: content-box;
@@ -542,6 +547,7 @@ body {
 
 .dl_blog_detail_info {
     display: flex;
+    width: 100%;
 }
 
 .dt_title__blog_info {
@@ -560,7 +566,6 @@ body {
 /*BLOG POSTS*/
 .blog_post__container {
     height: fit-content;
-    align-self: flex-end;
 }
 
 .blog_post__author {
@@ -577,6 +582,12 @@ body {
     font-size: 14px;
     margin: 5px 0 0 20px;
     opacity: .75;
+}
+
+.blog_post__img {
+    display: block;
+    width: 100%;
+    margin: 20px 0;
 }
 
 .blog_post {
@@ -606,6 +617,8 @@ body {
 /*POST DETAIL*/
 .info_about_post {
     margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 /*COMMENTS*/
@@ -656,4 +669,46 @@ body {
 
 .comment_button {
     margin-top: 10px;
+}
+
+/*EDITORS PAGE*/
+.editors_block {
+    display: flex;
+    position: relative;
+}
+
+.small_form_input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 20px;
+    margin-bottom: 10px;
+
+    outline: none;
+    border: none;
+    border-radius: 3px;
+}
+
+
+/*USER*/
+.user_photo__info {
+    width: 30px;
+    height: 30px;
+}
+
+.blog_post__author {
+    margin: 0 0 0 10px;
+    font-size: 16px;
+
+    padding-bottom: 10px;
+    box-sizing: content-box;
+}
+
+.user__date_joined {
+    position: absolute;
+    right: 20px;
+    top: 0;
+
+    font-size: 14px;
+
+    opacity: .75;
 }

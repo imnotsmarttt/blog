@@ -64,8 +64,10 @@ class CommentForm(forms.ModelForm):
         }
 
 
-class AddBlogEditorForl(forms.Form):
-    editor = forms.CharField(widget=forms.TextInput(attrs={
-        'class': 'form_input', 'placeholder': 'Введите заголовок'
+class AddBlogEditorForm(forms.Form):
+    editor = forms.CharField(
+        label='',
+        widget=forms.TextInput(attrs={
+        'class': 'small_form_input', 'placeholder': 'Введите логин'
     })
     )

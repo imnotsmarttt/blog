@@ -13,7 +13,6 @@
             <div class="blog_detail__header_block__links">
                 <a href="#" class="blog_detail__header_block__links_item">ПРО БЛОГ</a>
                 <a href="{% url 'blog_detail' pk=blog.id %}" class="blog_detail__header_block__links_item">ПОСТЫ</a>
-                <a href="#" class="blog_detail__header_block__links_item">НОВОСТИ</a>
                 <a href="{% url 'blog_editors' pk=blog.id%}" class="blog_detail__header_block__links_item">РЕДАКТОРЫ</a>
             </div>
         </div>{#  BLOG HEADER  #}
@@ -33,9 +32,8 @@
                 <dt class="dt_title__blog_info">Редакторы:</dt>
                 <dd class="dd_title__blog_info">{{ blog.editors.all|length }}</dd>
             </dl>
+            {% if request.user in blog.editors.all %}
             <a href="{% url 'post_create' pk=blog.id %}" class="btn blue_btn">Опубликоваь пост</a>
-            {% if request.user == blog.creator %}
-                    <a href="#" class="btn blue_btn btn__fit_content">Добавить редактора</a>
             {% endif %}
         </div>{#  BLOG INFO  #}
 
@@ -45,7 +43,10 @@
                     <h4 class="blog_post__author">{{ post.author }}</h4>
                     <p class="blog_post__created">{{ post.created }}</p>
                     <h3 class="blog_post__title">{{ post.title }}</h3>
-                    <p class="blog_post__text">{{ post.text }}</p>
+                    {% if post.images %}
+                    <img class="blog_post__img" src="{% static post.images.url %}">
+                    {% endif %}
+                    <p class="blog_post__text">{{ post.text|truncatechars:255 }}</p>
                     <a href="{% url 'post_detail' blog_id=post.blog.id pk=post.id %}" class="btn blue_btn">Читать дальше</a>
                 </div>
             {% endfor %}

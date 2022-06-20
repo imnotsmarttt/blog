@@ -4,10 +4,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import FormMixin
 from django.http import HttpResponseRedirect
 
-from .forms import CreateBlogForm, CreatePostForm, CommentForm
+from .forms import CreateBlogForm, CreatePostForm, CommentForm, AddBlogEditorForm
 from .models import Blog, BlogPost, PostLike, Comment
-
 from .services import is_fan, BlogFeedMixin
+
+from blog_users.models import CustomUser
 
 def index(request):
     return render(request, 'base.html')
@@ -74,14 +75,34 @@ class BlogDetail(DetailView):
         return context
 
 
-class BlogEditors(DetailView):
+class BlogEditors(DetailView, FormMixin):
     model = Blog
     template_name = 'core/blog_editors.html'
+    form_class = AddBlogEditorForm
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['posts'] = BlogPost.objects.filter(blog=self.get_object()).order_by('-created')
-    #     return context
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        user = form.cleaned_data.get(('editor'))
+        if CustomUser.objects.filter(username=user).exists():
+            if self.get_object().editors.filter(id=CustomUser.objects.get(username=user).id):
+                form.add_error('__all__', 'Данный пользователь уже является редактором')
+                return self.form_invalid(form)
+            else:
+                self.get_object().editors.add(CustomUser.objects.get(username=user))
+                return super(BlogEditors, self).form_valid(form)
+        else:
+            form.add_error('__all__', 'Данного пользователя не существует')
+            return self.form_invalid(form)
+
+    def get_success_url(self):
+        return reverse('blog_editors', kwargs={'pk': self.get_object().id})
 
 
 class CreatePost(LoginRequiredMixin, CreateView):
@@ -92,16 +113,23 @@ class CreatePost(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['blog'] = Blog.objects.get(pk=self.kwargs['pk'])
+        blog = Blog.objects.get(pk=self.kwargs['pk'])
+        context['check_perm'] = blog.editors.filter(id=self.request.user.id).exists()
+        context['blog'] = blog
         return context
 
     def form_valid(self, form):
-        f = form.save(commit=False)
-        f.author = self.request.user
-        f.blog = self.get_context_data()['blog']
-        f.is_active = True
-        f.save()
-        return super().form_valid(form)
+        if self.get_context_data()['check_perm']:
+            f = form.save(commit=False)
+            f.author = self.request.user
+            f.blog = self.get_context_data()['blog']
+            f.is_active = True
+            f.save()
+            return super().form_valid(form)
+        else:
+            form.add_error('__all__', 'Вы не являетесь редактором или создателем данного блога')
+            return self.form_invalid(form)
+
 
     def get_success_url(self):
         return reverse('blog_detail', kwargs={'pk': self.get_context_data()['blog'].id})

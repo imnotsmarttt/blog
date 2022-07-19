@@ -1,12 +1,10 @@
 from django.core.paginator import Paginator
-from django.views.generic.list import ListView
 
-from .models import PostLike, Blog, BlogRubric
+from .models import PostLike, BlogRubric
 
 
 def is_fan(obj, user) -> bool:
-    """Проверяет, лайкнул ли `user` `obj`.
-    """
+    """Проверяет, лайкнул ли `user` `obj`."""
     if not user.is_authenticated:
         return False
     likes = PostLike.objects.filter(

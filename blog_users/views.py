@@ -52,6 +52,7 @@ class UserEditProfile(UpdateView):
 
 
 class UserBlogs(DetailView):
+    """Блоги конкретного пользователя"""
     template_name = 'users/user_blog.html'
     model = CustomUser
     context_object_name = 'user'
@@ -77,6 +78,7 @@ class UserBlogs(DetailView):
 
 
 class UserBlogsByRubric(DetailView):
+    """Отсортированные блоги конкретного пользователя"""
     template_name = 'users/user_blog.html'
     model = CustomUser
     context_object_name = 'user'

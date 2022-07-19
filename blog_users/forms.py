@@ -20,13 +20,7 @@ class UserRegisterForm(UserCreationForm):
     class Meta:
         model = CustomUser
         fields = ['username', 'first_name', 'last_name', 'password1', 'password2', 'country', 'region']
-        labels = {
-            'username': '',
-            'first_name': '',
-            'last_name': '',
-            'country': '',
-            'region': '',
-        }
+        labels = {l: '' for l in fields}
 
         widgets = {
             'username': forms.TextInput(attrs={
@@ -66,14 +60,7 @@ class UserEditProfileForm(UserChangeForm):
     class Meta:
         model = CustomUser
         fields = ['first_name', 'last_name', 'country', 'region', 'about', 'avatar']
-        labels = {
-            'first_name': '',
-            'last_name': '',
-            'country': '',
-            'region': '',
-            'about': '',
-            'avatar': '',
-        }
+        labels = {l: '' for l in fields}
         help_texts = {
             'username': None
         }
@@ -94,5 +81,4 @@ class UserEditProfileForm(UserChangeForm):
             'about': forms.Textarea(attrs={
                 'class': 'form_textarea', 'placeholder': 'О себе'
             }),
-            # 'avatar': forms.FileInput()
         }

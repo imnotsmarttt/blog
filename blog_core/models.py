@@ -51,11 +51,13 @@ class BlogPost(models.Model):
 
 
 class PostLike(models.Model):
+    """Модель лайка поста"""
     post = models.ForeignKey('BlogPost', on_delete=models.CASCADE, related_name='post')
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='like')
 
 
 class Comment(models.Model):
+    """Модель комментария"""
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     post = models.ForeignKey('BlogPost', on_delete=models.CASCADE)
     content = models.TextField()

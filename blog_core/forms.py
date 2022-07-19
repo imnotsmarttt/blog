@@ -1,5 +1,6 @@
 from django import forms
 
+
 from .models import Blog, BlogPost, Comment
 
 
@@ -8,11 +9,7 @@ class CreateBlogForm(forms.ModelForm):
     class Meta:
         model = Blog
         fields = ['name', 'description', 'rubric']
-        labels = {
-            'name': '',
-            'description': '',
-            'rubric': '',
-        }
+        labels = {l: '' for l in fields}
 
         widgets = {
             'name': forms.TextInput(attrs={
@@ -32,11 +29,7 @@ class CreatePostForm(forms.ModelForm):
     class Meta:
         model = BlogPost
         fields = ['title', 'text', 'images']
-        labels = {
-            'title': '',
-            'text': '',
-            'images': '',
-        }
+        labels = {l: '' for l in fields}
 
         widgets = {
             'title': forms.TextInput(attrs={
@@ -65,6 +58,7 @@ class CommentForm(forms.ModelForm):
 
 
 class AddBlogEditorForm(forms.Form):
+    """Форма добавления редактора"""
     editor = forms.CharField(
         label='',
         widget=forms.TextInput(attrs={

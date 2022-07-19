@@ -23,7 +23,7 @@ class CreateBlog(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         blog_count_check = Blog.objects.filter(creator=self.request.user).values('creator').count() >= 3
         if blog_count_check:
-            form.add_error('__all__', 'У вас максимальное кол-во записей')
+            form.add_error('__all__', 'У вас максимальное кол-во блогов')
             return self.form_invalid(form)
         else:
             blog = form.save(commit=False)
@@ -44,8 +44,8 @@ class BlogFeed(BlogFeedMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_blog_context(blog_pag=BlogFeedMixin.blog_paginator(self,
-                                                                            request=self.request, queryset=Blog.objects.all()))
+        c_def = self.get_blog_context(blog_pag=BlogFeedMixin.blog_paginator(
+            self, request=self.request, queryset=Blog.objects.all()))
         context.update(c_def)
         return context
 
@@ -57,9 +57,8 @@ class BlogFeedByRubric(BlogFeedMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_blog_context(blog_pag=BlogFeedMixin.blog_paginator(self,
-                                                                            request=self.request,
-                                                                            queryset=Blog.objects.filter(rubric=self.kwargs['rubric'])))
+        c_def = self.get_blog_context(blog_pag=BlogFeedMixin.blog_paginator(
+            self, request=self.request, queryset=Blog.objects.filter(rubric=self.kwargs['rubric'])))
         context.update(c_def)
         return context
 
@@ -76,6 +75,7 @@ class BlogDetail(DetailView):
 
 
 class BlogEditors(DetailView, FormMixin):
+    """Страница добавления и отображения редакторов блога"""
     model = Blog
     template_name = 'core/blog_editors.html'
     form_class = AddBlogEditorForm
@@ -89,7 +89,7 @@ class BlogEditors(DetailView, FormMixin):
             return self.form_invalid(form)
 
     def form_valid(self, form):
-        user = form.cleaned_data.get(('editor'))
+        user = form.cleaned_data.get('editor')
         if CustomUser.objects.filter(username=user).exists():
             if self.get_object().editors.filter(id=CustomUser.objects.get(username=user).id):
                 form.add_error('__all__', 'Данный пользователь уже является редактором')
